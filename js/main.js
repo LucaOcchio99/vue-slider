@@ -33,6 +33,7 @@ const app = new Vue({
             ],
 
             activeSlide: 3,
+            timer: 0,
     },
     methods: {
         prevSlide(){
@@ -49,6 +50,23 @@ const app = new Vue({
             if(this.activeSlide > this.slides.length - 1) {
                 this.activeSlide = 0;
             }
+            },
+            /**
+             * set slide by thumb click
+             */
+        setSlide(slideIndex) {
+               this.activeSlide = slideIndex;
+        },
+
+        play: function() {
+            let app = this;
+            this.timer = setInterval(function() {
+              app.nextSlide();
+            }, 3000);
+
         }
-    }
+    },
+    created: function() {
+        this.play();
+      }
 });
