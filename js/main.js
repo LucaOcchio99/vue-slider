@@ -30,6 +30,25 @@ const app = new Vue({
                 image: 'img/05.jpg',
                 title: 'Et temporibus voluptatum suscipit tempore aliquid deleniti aut veniam inventore eligendi ex ad ullam, cumque provident totam omnis.',
                 },
-            ]
+            ],
+
+            activeSlide: 3,
+    },
+    methods: {
+        prevSlide(){
+            //this.activeSlide = this.activeSlide - 1
+            this.activeSlide--;
+
+            if(this.acctiveSlide < 0) {
+                this.activeSlide = this.slides.lenght - 1;
+            }
+        },
+        nextSlide() {
+            this.activeSlide++;
+
+            if(this.activeSlide > this.slides.length - 1) {
+                this.activeSlide = 0;
+            }
+        }
     }
 });

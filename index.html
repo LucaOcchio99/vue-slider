@@ -16,10 +16,15 @@
         <div class="images">
             <!-- genera con vue -->
             <div class="image-container">
-    <!-- uso il ciclo for per prendere tutte le img -->
-                <img :src="slide.image" v-for="slide in slides" alt="">
+
+                <!-- {{slides[activeSlide]}} -->
+    <!-- Entro nell'array (slides) entro nel oggetto tramite l'indice
+    (activeSlide) pesco l'elemento interessato (.image) -->
+                <img :src="slides[activeSlide].image" :alt="slides[activeSlide].title">
                 <div class="text">
-                    <h3>Lorem</h3>
+    <!-- entro nell'array (slides) entro nell'oggetto tramite
+    l'indice (activeSlide) pesco l'elemento  interessato (.title) -->
+                    <h3>{{ slides[activeSlide].title }}</h3>
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et temporibus voluptatum suscipit tempore aliquid deleniti aut veniam inventore eligendi ex ad ullam, cumque provident totam omnis, magnam dolores dolorum corporis.</p>
                 </div>
             </div>
@@ -28,13 +33,25 @@
         <!-- Thumbnails -->
         <div class="thumbs">
             <!-- genera con vue  -->
-            <div class="thumb active">
-            <!-- uso il ciclo for per prendere tutte le img -->
-                <img :src="slide.image" v-for="slide in slides" alt="Lorem">
+<!-- uso il ciclo for per prendere tutte le img, o meglio ancora 
+lo uso nel div perche necessito di esso in quanto c'e la classe
+active che mi serve successivamente -->
+
+<!-- Lui ora genera tanti thumb ma anche con classe active,
+quello che dobbiamo fare è cercare di distribuire l'active
+in modo coerente con l'active index(activeSlide)....
+quindi innanzitutto togliamo la classe active, in quanto bisogna
+inserirla in maniera dinamica 
+:class = "{nomeClasse: condizione}" -->
+            <div v-for="(slide, index) in slides" 
+            class="thumb" 
+            :class="{active: index === activeSlide}">
+            
+            <img :src="slide.image" alt="Lorem">
             </div>
 
-            <div class="prev">&uarr;</div>
-            <div class="next">&darr;</div>
+            <div class="prev" @click="prevSlide">&uarr;</div>
+            <div class="next" @click="nextSlide">&darr;</div>
         </div>
     </section>
 </div>
